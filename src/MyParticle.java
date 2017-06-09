@@ -40,7 +40,7 @@ public class MyParticle extends Particle {
         for (int i = 0; i < Constants.NO_OF_DATA_CENTERS; i++) {
             String tasks = "";
             for (int j = 0; j < Constants.NO_OF_TASKS; j++) {
-                if (i == dataCenterIds[j])
+                if (i == getPosition()[j])
                     tasks += (tasks.isEmpty() ? "" : " ") + j;
             }
             if (tasks.isEmpty()) output += "There is no tasks associated to Data Center " + i + "\n";

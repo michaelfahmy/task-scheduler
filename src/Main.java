@@ -9,7 +9,8 @@ public class Main {
         Swarm swarm = new Swarm(Constants.POPULATION_SIZE, new MyParticle(), new MyFitnessFunction());
 
         swarm.setMinPosition(0);
-        swarm.setMaxPosition(1);
+        swarm.setMaxPosition(Constants.NO_OF_DATA_CENTERS);
+        swarm.setMaxMinVelocity(2);
         swarm.setParticles(particles);
         swarm.setParticleUpdate(new MyParticleUpdate(new MyParticle()));
 
