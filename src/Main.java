@@ -1,9 +1,11 @@
 import net.sourceforge.jswarm_pso.Swarm;
 
+import java.io.IOException;
+
 public class Main {
     private static MyParticle particles[];
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         initParticles();
 
         Swarm swarm = new Swarm(Constants.POPULATION_SIZE, new MyParticle(), new MyFitnessFunction());
