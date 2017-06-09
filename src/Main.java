@@ -11,13 +11,14 @@ public class Main {
         Swarm swarm = new Swarm(Constants.POPULATION_SIZE, new MyParticle(), new MyFitnessFunction());
 
         swarm.setMinPosition(0);
-        swarm.setMaxPosition(Constants.NO_OF_DATA_CENTERS);
+        swarm.setMaxPosition(Constants.NO_OF_DATA_CENTERS - 1);
         swarm.setMaxMinVelocity(2);
         swarm.setParticles(particles);
         swarm.setParticleUpdate(new MyParticleUpdate(new MyParticle()));
 
         for (int i = 0; i < 100; i++) {
             swarm.evolve();
+            System.out.println("Global best (" + i + "): " + swarm.getBestFitness());
             if (i < 10)
                 System.out.println(swarm.getBestParticle().toString());
         }

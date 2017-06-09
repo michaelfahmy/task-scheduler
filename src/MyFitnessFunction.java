@@ -2,7 +2,6 @@ import net.sourceforge.jswarm_pso.FitnessFunction;
 import net.sourceforge.jswarm_pso.Particle;
 
 import java.io.*;
-import java.util.StringTokenizer;
 
 public class MyFitnessFunction extends FitnessFunction {
     private double[][] costMatrix;
@@ -33,7 +32,7 @@ public class MyFitnessFunction extends FitnessFunction {
         double[] dcWorkingTime = new double[Constants.NO_OF_DATA_CENTERS];
 
         for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
-            int dcId = p.getDataCenterIds()[i];
+            int dcId = (int) p.getPosition()[i];
             dcWorkingTime[dcId] += costMatrix[i][dcId];
             makespan = Math.max(makespan, dcWorkingTime[dcId]);
         }
@@ -42,18 +41,16 @@ public class MyFitnessFunction extends FitnessFunction {
     }
 
     private void initCostMatrix() throws IOException {
-        bufferedWriter = new BufferedWriter(new FileWriter("out.txt"));
-
+        bufferedWriter = new BufferedWriter(new FileWriter(file));
         costMatrix = new double[Constants.NO_OF_TASKS][Constants.NO_OF_DATA_CENTERS];
 
         for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
             for (int j = 0; j < Constants.NO_OF_DATA_CENTERS; j++) {
-                costMatrix[i][j] = Math.random() * 301 + 20;
+                costMatrix[i][j] = Math.random() * 600 + 20;
                 bufferedWriter.write(String.valueOf(costMatrix[i][j]) + ' ');
             }
             bufferedWriter.write('\n');
         }
-
         bufferedWriter.close();
     }
 
@@ -62,15 +59,14 @@ public class MyFitnessFunction extends FitnessFunction {
         bufferedReader = new BufferedReader(new FileReader(file));
         costMatrix = new double[Constants.NO_OF_TASKS][Constants.NO_OF_DATA_CENTERS];
 
-        int i = 0, j = i;
+        int i = 0, j = 0;
         do {
             String line = bufferedReader.readLine();
-
-            for(String num: line.split(" ")) {
+            for (String num : line.split(" ")) {
                 costMatrix[i][j++] = new Double(num);
             }
-
-            ++i; j = 0;
-        } while(bufferedReader.ready());
+            ++i;
+            j = 0;
+        } while (bufferedReader.ready());
     }
 }
