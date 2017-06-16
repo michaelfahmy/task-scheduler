@@ -3,20 +3,18 @@ import net.sourceforge.jswarm_pso.FitnessFunction;
 import java.io.*;
 
 public class MyFitnessFunction extends FitnessFunction {
-    protected double[][] costMatrix;
-    private BufferedWriter bufferedWriter;
-    private BufferedReader bufferedReader;
-
+    static double[][] costMatrix;
     private File file = new File("out.txt");
 
     MyFitnessFunction() {
         super(false);
         try {
-            if (file.exists()) {
-                readCostMatrix();
-            } else {
-                initCostMatrix();
-            }
+            if (costMatrix == null)
+                if (file.exists()) {
+                    readCostMatrix();
+                } else {
+                    initCostMatrix();
+                }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,11 +30,12 @@ public class MyFitnessFunction extends FitnessFunction {
         double totalCost = new MyFF_TotalCost().evaluate(position);
         double makespan = new MyFF_Makespan().evaluate(position);
 
-        return alpha * totalCost + (1-alpha) * makespan;
+        return alpha * totalCost + (1 - alpha) * makespan;
     }
 
     private void initCostMatrix() throws IOException {
-        bufferedWriter = new BufferedWriter(new FileWriter(file));
+        System.out.println("Initializing new Cost Matrix");
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
         costMatrix = new double[Constants.NO_OF_TASKS][Constants.NO_OF_DATA_CENTERS];
 
         for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
@@ -49,9 +48,9 @@ public class MyFitnessFunction extends FitnessFunction {
         bufferedWriter.close();
     }
 
-
     private void readCostMatrix() throws IOException {
-        bufferedReader = new BufferedReader(new FileReader(file));
+        System.out.println("Reading the Cost Matrix");
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         costMatrix = new double[Constants.NO_OF_TASKS][Constants.NO_OF_DATA_CENTERS];
 
         int i = 0, j = 0;

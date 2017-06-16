@@ -14,7 +14,7 @@ public class MyFF_TotalCost extends MyFitnessFunction {
 
         for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
             int dcId = (int) position[i];
-            totalCost += super.costMatrix[i][dcId];
+            totalCost += costMatrix[i][dcId];
         }
         return totalCost;
     }

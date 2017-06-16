@@ -4,7 +4,7 @@ import net.sourceforge.jswarm_pso.Swarm;
 
 
 public class MyParticleUpdate extends ParticleUpdate {
-    private static final double W = 1.0; // Inertial weight
+    private static final double W = 0.9; // Inertial weight
     private static final double C = 2.0; // acceleration coefficient
 
     MyParticleUpdate(Particle particle) {
